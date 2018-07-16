@@ -30,23 +30,18 @@ pipeline {
           }
         }
       }
-    stage('Get Kernel') {
-      steps {
-        script {
-          try {
-            KERNEL_VERSION = sh (script: "uname -r", returnStdout: true)
-          } catch(err) {
-            echo "CAUGHT ERROR: ${err}"
-            throw err
-          }
-        }
+    stage('Checkpoint') {
+         agent none
+         steps {
+            checkpoint 'Checkpoint'
+         }
       }
-    }
-    stage('Say Kernel') {
-      steps {
-        echo "${KERNEL_VERSION}"
+      stage('Deploy') {
+         agent none
+         steps {
+            echo 'Deploying....'
+         }
       }
-    }
   }
   environment {
     MY_NAME = 'Frank'
