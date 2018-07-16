@@ -35,11 +35,15 @@ pipeline {
       }
     }
     stage('Checkpoint') {
+      agent none
       steps {
         checkpoint 'Checkpoint'
       }
     }
     stage('Deploy') {
+      agent {
+            label 'jdk9'
+          }
       steps {
         echo 'Deploying....'
       }
